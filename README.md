@@ -1,5 +1,9 @@
 # Spigot_ShulkerBoxNBTCrafter
 A plugin for Spigot to craft with shulker boxes
 
-Still under test stage.
+
 Not compatable to unstackable recipes.
+If the shape of the content of the shulker box matches the existing recipe, them it can be crafted.
+
+Demo video
+https://youtu.be/Pt9DrZP47qA
