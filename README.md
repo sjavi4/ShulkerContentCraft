@@ -8,7 +8,7 @@ Not compatable to unstackable recipes.
 Most of the recipes are supported
 
 
--Exculded :
+- Exculded :
 
 
   Cake
@@ -20,7 +20,7 @@ Most of the recipes are supported
   other unstackables
   
   
--Specially Suppored :
+- Specially Suppored :
 
 
   Honey block (glass bottle will return)
