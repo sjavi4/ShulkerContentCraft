@@ -1,0 +1,4 @@
+name: ShulkerBoxNBTCrafter
+version: '${project.version}'
+main: me.autobot.shulkerboxnbtcrafter.ShulkerBoxNBTCrafter
+api-version: 1.19
