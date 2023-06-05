@@ -80,12 +80,13 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
         int resultedCount = resultedItem.getAmount();
 
         //Check for numbers of shulker boxes in crafting table
+        int[] filteredArray = Arrays.stream(nbtcounts).filter(num -> num != 0).toArray();
+        Arrays.sort(filteredArray);
         ItemStack[] craftedItem = new ItemStack[27];
         if (FirstItem != null) {
-            if (FirstItem.getMaxStackSize() < resultedItem.getMaxStackSize()) {
+            if (filteredArray[0] < resultedItem.getMaxStackSize()) {
                 //16/32 and 64
-                int[] filteredArray = Arrays.stream(nbtcounts).filter(num -> num != 0).toArray();
-                Arrays.sort(filteredArray);
+
                 for (int i = 0; i < craftedItem.length; i++) {
                     craftedItem[i] = new ItemStack(resultedItem.getType(), filteredArray[0]);
                 }
