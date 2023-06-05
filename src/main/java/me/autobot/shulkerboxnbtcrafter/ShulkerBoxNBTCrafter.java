@@ -23,7 +23,23 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(this, this);
     }
 
-    public class getCraftingTableMatrix {
+    static class shulk {
+        ItemStack createContent(ItemStack item, int itemCount) {
+            ItemStack[] craftedItem = new ItemStack[27];
+            for (int i = 0; i < craftedItem.length; i++) {
+                craftedItem[i] = new ItemStack(item.getType(), itemCount);
+            }
+            ItemStack boxedItem = new ItemStack(Material.SHULKER_BOX, 1);
+            //Register New Shulker Box for result
+            BlockStateMeta bsm = (BlockStateMeta) boxedItem.getItemMeta();
+            ShulkerBox box = (ShulkerBox) bsm.getBlockState();
+            Inventory boxInv = box.getInventory();
+            boxInv.setContents(craftedItem);
+            bsm.setBlockState(box);
+            boxedItem.setItemMeta(bsm);
+            box.update();
+            return boxedItem;
+        }
 
     }
     @EventHandler
@@ -82,30 +98,15 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
         //Check for numbers of shulker boxes in crafting table
         int[] filteredArray = Arrays.stream(nbtcounts).filter(num -> num != 0).toArray();
         Arrays.sort(filteredArray);
-        ItemStack[] craftedItem = new ItemStack[27];
+
+        ItemStack boxedItem;
         if (FirstItem != null) {
             if (filteredArray[0] < resultedItem.getMaxStackSize()) {
-                //16/32 and 64
-
-                for (int i = 0; i < craftedItem.length; i++) {
-                    craftedItem[i] = new ItemStack(resultedItem.getType(), filteredArray[0]);
-                }
+                boxedItem = new shulk().createContent(resultedItem, filteredArray[0] * resultedItem.getAmount());
             } else {
-                for (int i = 0; i < craftedItem.length; i++) {
-                    craftedItem[i] = new ItemStack(resultedItem.getType(), resultedItem.getMaxStackSize());
-                }
+                boxedItem = new shulk().createContent(resultedItem, resultedItem.getMaxStackSize());
             }
-            ItemStack boxedItem = new ItemStack(Material.SHULKER_BOX, 1);
-            //Register New Shulker Box for result
-            BlockStateMeta bsm = (BlockStateMeta) boxedItem.getItemMeta();
-            ShulkerBox box = (ShulkerBox) bsm.getBlockState();
-            Inventory boxInv = box.getInventory();
-            boxInv.setContents(craftedItem);
-            bsm.setBlockState(box);
-            boxedItem.setItemMeta(bsm);
-            box.update();
-
-            if ( (resultedCount == 1 || (resultedCount > 1 && resultedCount == inputCount))
+            if ( (resultedCount == 1 || (resultedCount > 1 && resultedCount == inputCount && resultedCount / inputCount <= 64) || (resultedCount > 1 && filteredArray[0] * resultedCount <= 64 && filteredArray[0] < 64 ))
                     && resultedItem.getMaxStackSize() != 1
             ) {
                 event.getInventory().setResult(boxedItem);
@@ -117,8 +118,8 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
     public void handleCraftingResult(InventoryClickEvent event) {
         int getInputCount = 0;
         int index = 0;
-        ItemStack[] nbtContainsType = new ItemStack[9];
         int[] nbtcounts = new int[9];
+        ItemStack[] nbtContainsType = new ItemStack[9];
         if (event.getClickedInventory() != null && event.getClickedInventory().getType() == InventoryType.WORKBENCH) {
             CraftingInventory inv = (CraftingInventory) event.getInventory();
             if (((CraftingInventory) event.getInventory()).getResult() == null) {return;}
@@ -160,38 +161,16 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
                                 if (resultedItem.getAmount() == 1) { //Form
                                     if (resultedItem.getType() == Material.HONEY_BLOCK) {
                                         if (i == 1) {
-                                            ItemStack[] craftedItem = new ItemStack[27];
-                                            for (int j = 0; j < craftedItem.length; j++) {
-                                                craftedItem[j] = new ItemStack(Material.GLASS_BOTTLE, 64);
-                                            }
-                                            ItemStack boxedItem = new ItemStack(Material.SHULKER_BOX, 1);
+                                            ItemStack boxedItem = new shulk().createContent(new ItemStack(Material.GLASS_BOTTLE), Material.GLASS_BOTTLE.getMaxStackSize());
 
-                                            BlockStateMeta bsm = (BlockStateMeta) boxedItem.getItemMeta();
-                                            ShulkerBox box = (ShulkerBox) bsm.getBlockState();
-                                            Inventory boxInv = box.getInventory();
-                                            boxInv.setContents(craftedItem);
-                                            bsm.setBlockState(box);
-                                            boxedItem.setItemMeta(bsm);
-                                            box.update();
                                             inv.setItem(i, boxedItem);
                                         } else {
                                             inv.setItem(i, new ItemStack(Material.SHULKER_BOX, 1));
                                         }
                                     } else if (resultedItem.getType() == Material.ENDER_EYE) {
                                         if (i == 1) {
-                                            ItemStack[] craftedItem = new ItemStack[27];
-                                            for (int j = 0; j < craftedItem.length; j++) {
-                                                craftedItem[j] = new ItemStack(Material.BLAZE_POWDER, 48);
-                                            }
-                                            ItemStack boxedItem = new ItemStack(Material.SHULKER_BOX, 1);
+                                            ItemStack boxedItem = new shulk().createContent(new ItemStack(Material.BLAZE_POWDER), 48);
 
-                                            BlockStateMeta bsm = (BlockStateMeta) boxedItem.getItemMeta();
-                                            ShulkerBox box = (ShulkerBox) bsm.getBlockState();
-                                            Inventory boxInv = box.getInventory();
-                                            boxInv.setContents(craftedItem);
-                                            bsm.setBlockState(box);
-                                            boxedItem.setItemMeta(bsm);
-                                            box.update();
                                             inv.setItem(i, boxedItem);
                                         } else {
                                             inv.setItem(i, new ItemStack(Material.SHULKER_BOX, 1));
@@ -204,43 +183,23 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
                                                 break;
                                             }
                                         }
-
-                                        ItemStack[] craftedItem = new ItemStack[27];
-                                        for (int j = 0; j < craftedItem.length; j++) {
-                                            craftedItem[j] = new ItemStack(resultedItem.getType(), resultedItem.getMaxStackSize());
-                                        }
                                         if (exceedbox > 0 && i <= exceedbox) {
-                                            ItemStack boxedItem = new ItemStack(Material.SHULKER_BOX, 1);
+                                            ItemStack boxedItem = new shulk().createContent(resultedItem, resultedItem.getMaxStackSize());
 
-                                            BlockStateMeta bsm = (BlockStateMeta) boxedItem.getItemMeta();
-                                            ShulkerBox box = (ShulkerBox) bsm.getBlockState();
-                                            Inventory boxInv = box.getInventory();
-                                            boxInv.setContents(craftedItem);
-                                            bsm.setBlockState(box);
-                                            boxedItem.setItemMeta(bsm);
-                                            box.update();
                                             inv.setItem(i, boxedItem);
                                         } else {
                                             inv.setItem(i, new ItemStack(Material.SHULKER_BOX, 1));
                                         }
                                     }
                                 } else {
-                                    ItemStack[] craftedItem = new ItemStack[27];
-                                    for (int j = 0; j < craftedItem.length; j++) {
-                                        craftedItem[j] = new ItemStack(resultedItem.getType(), resultedItem.getMaxStackSize());
-                                    }
                                     if (i <= resultedItem.getAmount()) {
-
-                                        ItemStack boxedItem = new ItemStack(Material.SHULKER_BOX, 1);
-
-                                        BlockStateMeta bsm = (BlockStateMeta) boxedItem.getItemMeta();
-                                        ShulkerBox box = (ShulkerBox) bsm.getBlockState();
-                                        Inventory boxInv = box.getInventory();
-                                        boxInv.setContents(craftedItem);
-                                        bsm.setBlockState(box);
-                                        boxedItem.setItemMeta(bsm);
-                                        box.update();
-                                        inv.setItem(i, boxedItem);
+                                        int[] filteredArray = Arrays.stream(nbtcounts).filter(num -> num != 0).toArray();
+                                        Arrays.sort(filteredArray);
+                                        if (resultedItem.getAmount() * filteredArray[0] > resultedItem.getMaxStackSize()) {
+                                            ItemStack boxedItem;
+                                            boxedItem = new shulk().createContent(resultedItem, resultedItem.getMaxStackSize());
+                                            inv.setItem(i, boxedItem);
+                                        }
                                     } else {
                                         inv.setItem(i, new ItemStack(Material.SHULKER_BOX, 1));
                                     }
