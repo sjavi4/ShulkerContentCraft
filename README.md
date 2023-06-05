@@ -7,4 +7,4 @@ Not compatable to unstackable recipes.
 If the shape of the content of the shulker box matches the existing recipe, then it can be crafted.
 
 Demo video
-https://youtu.be/Pt9DrZP47qA
+https://youtu.be/neqF9gN7WGs
