@@ -10,11 +10,9 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.BlockStateMeta;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
@@ -37,6 +35,8 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
         }
         //Stores shulker box's inventory as 1 itemstack
         ItemStack[] nbtContainsType = new ItemStack[9];
+        int[] nbtcounts = new int[9];
+
         //Iterate all items in Crafting table inventory
         int index = 0;
         int inputCount = 0;
@@ -66,6 +66,7 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
                                 break;
                             }
                             nbtContainsType[index] = new ItemStack(FirstItem);
+                            nbtcounts[index] = FirstItem.getAmount();
                         }
                     }
                 }
@@ -83,8 +84,10 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
         if (FirstItem != null) {
             if (FirstItem.getMaxStackSize() < resultedItem.getMaxStackSize()) {
                 //16/32 and 64
+                int[] filteredArray = Arrays.stream(nbtcounts).filter(num -> num != 0).toArray();
+                Arrays.sort(filteredArray);
                 for (int i = 0; i < craftedItem.length; i++) {
-                    craftedItem[i] = new ItemStack(resultedItem.getType(), resultedItem.getMaxStackSize() / FirstItem.getMaxStackSize());
+                    craftedItem[i] = new ItemStack(resultedItem.getType(), filteredArray[0]);
                 }
             } else {
                 for (int i = 0; i < craftedItem.length; i++) {
@@ -114,6 +117,7 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
         int getInputCount = 0;
         int index = 0;
         ItemStack[] nbtContainsType = new ItemStack[9];
+        int[] nbtcounts = new int[9];
         if (event.getClickedInventory() != null && event.getClickedInventory().getType() == InventoryType.WORKBENCH) {
             CraftingInventory inv = (CraftingInventory) event.getInventory();
             if (((CraftingInventory) event.getInventory()).getResult() == null) {return;}
@@ -130,6 +134,7 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
                                 ItemStack FirstItem = shulker.getInventory().getContents()[0];
                                 if (!shulker.getInventory().isEmpty()) {
                                     nbtContainsType[index] = new ItemStack(FirstItem);
+                                    nbtcounts[index] = FirstItem.getAmount();
                                 }
                             }
                         }
@@ -175,7 +180,7 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
                                         if (i == 1) {
                                             ItemStack[] craftedItem = new ItemStack[27];
                                             for (int j = 0; j < craftedItem.length; j++) {
-                                                craftedItem[j] = new ItemStack(Material.BLAZE_POWDER, 32);
+                                                craftedItem[j] = new ItemStack(Material.BLAZE_POWDER, 48);
                                             }
                                             ItemStack boxedItem = new ItemStack(Material.SHULKER_BOX, 1);
 
