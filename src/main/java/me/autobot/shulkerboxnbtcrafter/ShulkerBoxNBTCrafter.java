@@ -118,16 +118,19 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
             } else {
                 boxedItem = new shulk().createContent(resultedItem, resultedItem.getMaxStackSize());
             }
-            if (
+            if (27 * resultedItem.getMaxStackSize() * inputCount >= 27 * resultedCount * resultedItem.getMaxStackSize()
                     //form count = 1
-                    (resultedCount == 1 && resultedItem.getMaxStackSize() == 64
+                    //(resultedCount == 1 //&& resultedItem.getMaxStackSize() == 64
                             //form count > 1 and boxes are sufficient to store (total spaces of box > sum of product)
                             //sum of product = maxstack of product * count
                             //total space of box = 27 * maxstack of product * number of input
-                            || (resultedCount > 1 && 27 * resultedItem.getMaxStackSize() * inputCount >= 27 * resultedCount * resultedItem.getMaxStackSize())
-                            //form count > 1 and
+                            //|| (resultedCount >= 1 && 27 * resultedItem.getMaxStackSize() * inputCount >= 27 * resultedCount * resultedItem.getMaxStackSize())
+                            //form count > 1 and boxes are sufficient to store (total spaces of box > sum of product, case of non 64 stack)
+                            //sum of product = maxstack of product(16/32) * count
+                            //total space of box = 27 * maxstack of product(16/32) * number of input
+                            //filteredArray = inputcount
                             //|| (resultedCount > 1 && filteredArray[0] * resultedCount <= 64 && filteredArray[0] < 64)
-                    )
+                    //)
                     && resultedItem.getMaxStackSize() != 1
             ) {
                 event.getInventory().setResult(boxedItem);
