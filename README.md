@@ -8,7 +8,7 @@ Not compatable to unstackable recipes.
 Most of the recipes are supported
 
 
-- Exculded :
+- Excluded :
 
 
   Cake
