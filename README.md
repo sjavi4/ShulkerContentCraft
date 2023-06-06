@@ -29,12 +29,14 @@ Most of the recipes are supported
   Ender eye (16 & 64 stacked items recipe, glazed powder will return)
   
 
-Crafting Type : Breakdown (produce more than 1 resulted items)
+Crafting Type : more than 1 products
 
 
-- If the result count exceeds 64, extra empty shulker box(es) in crafting table slot is required.
+- If the number of product exceed a capacity of a box, extra empty shulker box(es) in crafting table slot is required.
 
-Crafting Type : Form (produce only 1 resulted item)
+(not compatable with items that have large count like glass pane & rails)
+
+Crafting Type : only 1 product
 
 
 - Empty shulker box(es) remains in crafting table slot.
