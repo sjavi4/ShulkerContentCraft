@@ -40,7 +40,14 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
             box.update();
             return boxedItem;
         }
-
+    }
+    static class recipe {
+        ItemStack getrecipe(ItemStack[] itemStacks) {
+            Recipe resultedRecipe = Bukkit.getCraftingRecipe(itemStacks, Bukkit.getWorlds().get(0));
+            if (resultedRecipe == null) {return null;}
+            ItemStack resultedItem = resultedRecipe.getResult();
+            return resultedItem;
+        }
     }
     @EventHandler
     public void handleCustomCrafting(PrepareItemCraftEvent event) {
@@ -50,14 +57,14 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
             return;
         }
         //Stores shulker box's inventory as 1 itemstack
+
         ItemStack[] nbtContainsType = new ItemStack[9];
         int[] nbtcounts = new int[9];
-
-        //Iterate all items in Crafting table inventory
         int index = 0;
         int inputCount = 0;
         ItemStack FirstItem = null;
 
+        //Iterate all items in Crafting table inventory
         for (ItemStack item : inventory.getMatrix()) {
 
             //Only Shulker Box
@@ -90,10 +97,15 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
             index++;
         }
 
+        ItemStack resultedItem = new recipe().getrecipe(nbtContainsType);
+        if (resultedItem == null) {return;}
+        int resultedCount = resultedItem.getAmount();
+        /*
         Recipe resultedRecipe = Bukkit.getCraftingRecipe(nbtContainsType, Bukkit.getWorlds().get(0));
         if (resultedRecipe == null) {return;}
         ItemStack resultedItem = resultedRecipe.getResult();
         int resultedCount = resultedItem.getAmount();
+         */
 
         //Check for numbers of shulker boxes in crafting table
         int[] filteredArray = Arrays.stream(nbtcounts).filter(num -> num != 0).toArray();
@@ -106,7 +118,16 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
             } else {
                 boxedItem = new shulk().createContent(resultedItem, resultedItem.getMaxStackSize());
             }
-            if ( (resultedCount == 1 || (resultedCount > 1 && resultedCount == inputCount && resultedCount / inputCount <= 64) || (resultedCount > 1 && filteredArray[0] * resultedCount <= 64 && filteredArray[0] < 64 ))
+            if (
+                    //form count = 1
+                    (resultedCount == 1 && resultedItem.getMaxStackSize() == 64
+                            //form count > 1 and boxes are sufficient to store (total spaces of box > sum of product)
+                            //sum of product = maxstack of product * count
+                            //total space of box = 27 * maxstack of product * number of input
+                            || (resultedCount > 1 && 27 * resultedItem.getMaxStackSize() * inputCount >= 27 * resultedCount * resultedItem.getMaxStackSize())
+                            //form count > 1 and
+                            //|| (resultedCount > 1 && filteredArray[0] * resultedCount <= 64 && filteredArray[0] < 64)
+                    )
                     && resultedItem.getMaxStackSize() != 1
             ) {
                 event.getInventory().setResult(boxedItem);
@@ -153,10 +174,10 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
                 if (event.getClickedInventory() != null && event.getClickedInventory().getType() == InventoryType.WORKBENCH) {
                     CraftingInventory inv = (CraftingInventory) event.getInventory();
                     if (event.getSlotType() == InventoryType.SlotType.RESULT) {
-
-                        Recipe resultedRecipe = Bukkit.getCraftingRecipe(nbtContainsType, Bukkit.getWorlds().get(0));
-                        if (resultedRecipe != null) {
-                            ItemStack resultedItem = resultedRecipe.getResult();
+                        ItemStack resultedItem = new recipe().getrecipe(nbtContainsType);
+                        //int resultedCount = resultedItem.getAmount();
+                        //Recipe resultedRecipe = Bukkit.getCraftingRecipe(nbtContainsType, Bukkit.getWorlds().get(0));
+                        if (resultedItem != null) {
                             for (int i = 0; i < finalGetInputCount; i++) {
                                 if (resultedItem.getAmount() == 1) { //Form
                                     if (resultedItem.getType() == Material.HONEY_BLOCK) {
@@ -192,7 +213,7 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
                                         }
                                     }
                                 } else {
-                                    if (i <= resultedItem.getAmount()) {
+                                    if (i < resultedItem.getAmount()) {
                                         int[] filteredArray = Arrays.stream(nbtcounts).filter(num -> num != 0).toArray();
                                         Arrays.sort(filteredArray);
                                         if (resultedItem.getAmount() * filteredArray[0] > resultedItem.getMaxStackSize()) {
