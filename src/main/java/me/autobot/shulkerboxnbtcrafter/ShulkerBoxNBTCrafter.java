@@ -86,7 +86,7 @@ public final class ShulkerBoxNBTCrafter extends JavaPlugin implements Listener {
                                     || nbtItemStack.getAmount() != nbtItemStack.getMaxStackSize()
                                     || FirstItem.getType() != nbtItemStack.getType()
                             ) {
-                                break;
+                                return;
                             }
                             nbtContainsType[index] = new ItemStack(FirstItem);
                             nbtcounts[index] = FirstItem.getAmount();
