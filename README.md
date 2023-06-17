@@ -29,7 +29,7 @@ Only **Empty / Single-item Fully-stacked** boxes can be used as crafting materia
 
 ### Known Issues
 
-Mixed item stacks recipes may have duplication bugs
+Mixed item stacks recipes may have duplication bugs (fine with vanilla recipes)
 - 16/32-stack & 64-stack -> 16/32/64-stack items
 
 ## Tutorial
