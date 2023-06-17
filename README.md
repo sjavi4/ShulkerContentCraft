@@ -1,46 +1,39 @@
 # Spigot_ShulkerBoxNBTCrafter
 A plugin for Spigot to craft with shulker boxes
 
+## Index
+- [Usage](#Usage)
+- [Notice](#Notice)
+- [Tutorial](#Tutorial)
 
-Not compatable to unstackable recipes.
+## Usage
 
-
-Most of the recipes are supported
-
-
-- Excluded :
-
-
-  Cake
-  
-  
-  Shulker box
-  
-  
-  other unstackables
-  
-  
-- Specially Suppored :
+A spigot plugin that allow players to use Shulker Boxes' inventory to craft
 
 
-  Honey block (glass bottle will return)
-  
-  
-  Ender eye (16 & 64 stacked items recipe, glazed powder will return)
-  
+## Notice
 
-Crafting Type : more than 1 products
+### Unsupported recipes
 
+These recipes are not supported
+- Unstackables
+- Output count > Input count (Eg. Glass pane, Iron bars)
 
-- If the number of product exceed a capacity of a box, extra empty shulker box(es) in crafting table slot is required.
+### Supported recipes
 
-(not compatable with items that have large count like glass pane & rails)
+All recipes that can be crafted, including custom recipes
 
-Crafting Type : only 1 product
+Only **Empty / Single-item Fully-stacked** boxes can be used as crafting material
 
+*If resultant > 1, extra __Empty__ boxes in crafting slot is required*
 
-- Empty shulker box(es) remains in crafting table slot.
+### Known Issues
 
+Mixed item stacks recipes may have duplication bugs
+- 16/32-stack & 64-stack -> 16/32/64-stack items
 
+## Tutorial
 Demo video
+
+
 https://youtu.be/neqF9gN7WGs
