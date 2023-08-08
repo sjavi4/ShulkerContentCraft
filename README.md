@@ -18,6 +18,8 @@ A spigot plugin that allow players to use Shulker Boxes' inventory to craft
 These recipes are not supported
 - Unstackables
 - Output count > Input count (Eg. Glass pane, Iron bars)
+- fireworks
+- firework_star
 
 ### Supported recipes
 
@@ -29,8 +31,9 @@ Only **Empty / Single-item Fully-stacked** boxes can be used as crafting materia
 
 ### Known Issues
 
-Mixed item stacks recipes may have duplication bugs (fine with vanilla recipes)
-- 16/32-stack & 64-stack -> 16/32/64-stack items
+Non-vanilla recipe might not supported.
+
+Cannot craft nbt-stored items (fireworks, custom items)
 
 ## Tutorial
 Demo video
