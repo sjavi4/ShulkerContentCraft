@@ -35,6 +35,11 @@ Non-vanilla recipe might not supported.
 
 Cannot craft nbt-stored items (fireworks, custom items)
 
+### Need Help
+
+Any suggestion of getting nbt-containing recipe using spigot API
+
+
 ## Tutorial
 Demo video
 
