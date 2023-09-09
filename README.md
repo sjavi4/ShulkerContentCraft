@@ -39,7 +39,7 @@ Cannot craft nbt-stored items (fireworks, custom items)
 
 ### Need Help
 
-Any suggestion of getting nbt-containing recipe using spigot API
+Any suggestion about getting nbt-containing recipe using spigot API
 
 
 ## Tutorial
