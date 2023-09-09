@@ -1,6 +1,8 @@
 # Spigot_ShulkerBoxNBTCrafter
 A plugin for Spigot to craft with shulker boxes
 
+[Modrinth](https://modrinth.com/plugin/shulkercontentcraft)
+
 ## Index
 - [Usage](#Usage)
 - [Notice](#Notice)
