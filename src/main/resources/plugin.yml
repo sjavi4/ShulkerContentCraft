@@ -1,0 +1,11 @@
+name: SBCrafter
+version: '${project.version}'
+main: me.autobot.resbcrafter.ReSBCrafter
+api-version: '1.17'
+folia-supported: true
+load: POSTWORLD
+commands:
+  SBCrafter:
+    aliases:
+      - sbc
+    usage: /command recipe on|off
