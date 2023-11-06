@@ -1,4 +1,0 @@
-name: sbCrafter
-version: '${project.version}'
-main: me.autobot.sbcrafter.SbCrafter
-api-version: '1.20'
