@@ -15,7 +15,6 @@ import org.bukkit.inventory.Recipe;
 import java.util.*;
 
 public class OnCraft implements Listener {
-    final Set<NamespacedKey> recipeKeys = new HashSet<>();
     RecipeHandler recipeHandler;
     ItemStack resultBox;
     ItemStack resultContent;

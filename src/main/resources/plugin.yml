@@ -1,6 +1,6 @@
 name: SBCrafter
 version: '${project.version}'
-main: me.autobot.resbcrafter.ReSBCrafter
+main: me.autobot.sbcrafter.SBCrafter
 api-version: '1.17'
 folia-supported: true
 load: POSTWORLD

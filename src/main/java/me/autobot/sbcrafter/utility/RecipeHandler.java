@@ -16,7 +16,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 
-public class RecipeHandler {
+public final class RecipeHandler {
     CraftingInventory inventory;
     ItemStack[] matrix;
     ItemStack[] matrixContents;

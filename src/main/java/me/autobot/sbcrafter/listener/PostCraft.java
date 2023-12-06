@@ -9,6 +9,8 @@ import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.plugin.Plugin;
@@ -26,6 +28,11 @@ public class PostCraft implements Listener {
         if (recipe == null) return;
 
         if (recipeHandler.getRecipe() == null) return;
+
+        if (e.getCursor().getType() != Material.AIR && !e.isShiftClick()) {
+            //e.setCancelled(true);
+            return;
+        };
         ItemStack resultContent = recipeHandler.getRecipe().getResult();
 
         List<Material> matrixContents = recipeHandler.getMatrixContentsList();
