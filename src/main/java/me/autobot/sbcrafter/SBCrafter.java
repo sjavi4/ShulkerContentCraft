@@ -19,7 +19,7 @@ public final class SBCrafter extends JavaPlugin {
     public static Plugin getPlugin() {
         return plugin;
     }
-
+    public static boolean isFolia = false;
     @Override
     public void onEnable() {
         plugin = this;
@@ -39,11 +39,24 @@ public final class SBCrafter extends JavaPlugin {
         config.options().copyDefaults(true);
         this.saveConfig();
         disabledMaterialList.addAll(config.getStringList("Disable"));
+
+        if (getClass("io.papermc.paper.threadedregions.RegionizedServer")) {
+            isFolia = true;
+        }
     }
 
     @Override
     public void onDisable() {
         this.getConfig().set("Disable", disabledMaterialList);
         this.saveConfig();
+    }
+
+    private boolean getClass(String className) {
+        try {
+            Class.forName(className);
+            return true;
+        } catch (ClassNotFoundException ignored) {
+            return false;
+        }
     }
 }

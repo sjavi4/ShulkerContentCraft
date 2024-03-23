@@ -106,7 +106,7 @@ public final class RecipeHandler {
         }
         Bukkit.addRecipe(recipe);
         Runnable runnable = () -> Bukkit.removeRecipe(key);
-        if (SBCrafter.getPlugin().getServer().getName().equalsIgnoreCase("folia")) {
+        if (SBCrafter.isFolia) {
             try {
                 Object globalRegionScheduler = Bukkit.getServer().getClass().getMethod("getGlobalRegionScheduler").invoke(Bukkit.getServer());
                 Method execute = globalRegionScheduler.getClass().getMethod("execute", Plugin.class, Runnable.class);

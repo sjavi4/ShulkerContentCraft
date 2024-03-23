@@ -5,7 +5,6 @@ import me.autobot.sbcrafter.utility.RecipeHandler;
 import me.autobot.sbcrafter.utility.ShulkerBoxHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.PrepareItemCraftEvent;

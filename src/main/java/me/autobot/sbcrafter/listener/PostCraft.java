@@ -138,7 +138,7 @@ public class PostCraft implements Listener {
             }
         }
         Runnable runnable = ()->{e.getInventory().setMatrix(newMatrix.toArray(new ItemStack[0]));};
-        if (SBCrafter.getPlugin().getServer().getName().equalsIgnoreCase("folia")) {
+        if (SBCrafter.isFolia) {
             try {
                 Object regionScheduler = Bukkit.getServer().getClass().getMethod("getRegionScheduler").invoke(Bukkit.getServer());
                 Method execute = regionScheduler.getClass().getMethod("execute", Plugin.class, Location.class, Runnable.class);
