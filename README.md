@@ -1,4 +1,4 @@
-# Spigot_ShulkerBoxNBTCrafter
+# reSBCrafter
 A plugin to craft with shulker boxes
 
 
