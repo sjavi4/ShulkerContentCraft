@@ -1,0 +1,6 @@
+name: ReSbCrafter
+version: '${project.version}'
+main: me.autobot.resbcrafter.ReSbCrafter
+api-version: '1.17'
+folia-supported: true
+load: STARTUP
