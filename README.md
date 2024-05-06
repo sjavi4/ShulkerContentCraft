@@ -1,6 +1,7 @@
 # reSBCrafter
 A plugin to craft with shulker boxes
 
+[Modrinth](https://modrinth.com/plugin/shulkercontentcraft)
 
 ## Notice
 
