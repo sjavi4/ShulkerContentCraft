@@ -7,7 +7,7 @@ A plugin to craft with shulker boxes
 ### Unsupported recipes
 
 These recipes are not supported
-- Output count > Input count
+- Output count > Input count<br>
   (Eg. Glass pane, Iron bars, Honey bottle using 4 glass bottles and 1 honey block, Unstackables using only Stackable material)
 
 ### Supported recipes
