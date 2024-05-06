@@ -28,8 +28,10 @@ public class SpecialRemaining {
             }
             if (matrixItem.getType() == Material.HONEY_BOTTLE) {
                 present = true;
-                returnItem = new ItemStack(Material.GLASS_BOTTLE);
-                returnItem.setAmount(returnItem.getMaxStackSize());
+                break;
+            }
+            if (matrixItem.getType() == Material.MILK_BUCKET) {
+                present = true;
                 break;
             }
         }
@@ -37,10 +39,23 @@ public class SpecialRemaining {
             return;
         }
         switch (result.getType()) {
-            case HONEY_BLOCK -> extraInputCount = 0;
+            case HONEY_BLOCK -> {
+                returnItem = new ItemStack(Material.GLASS_BOTTLE);
+                returnItem.setAmount(returnItem.getMaxStackSize());
+                extraInputCount = 0;
+            }
             case SUGAR -> {
-                extraInputCount = 1;
+                returnItem = new ItemStack(Material.GLASS_BOTTLE);
                 returnItem.setAmount(16);
+                extraInputCount = 1;
+            }
+            case CAKE -> {
+                returnItem = new ItemStack(Material.BUCKET);
+                returnItem.setAmount(3);
+            }
+            default -> {
+                extraInputCount = 0;
+                returnItem = Items.AIR;
             }
         }
     }

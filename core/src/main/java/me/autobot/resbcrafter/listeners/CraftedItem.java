@@ -46,21 +46,27 @@ public class CraftedItem implements Listener {
         modifiedMatrix[firstBoxIndex] = Items.AIR;
         condensedMatrix[firstBoxIndex] = null;
         boxColorMatrix[firstBoxIndex] = -2;
+
+        // Special Returns
+        if (specialRemaining.returnItem != Items.AIR) {
+            // Find first empty box to store the special return
+            for (int index = 0; index < condensedMatrix.length; index++) {
+                ItemStack condensedItem = condensedMatrix[index];
+                if (condensedItem == null) {
+                    continue;
+                }
+                ItemStack[] returnItem = new ItemStack[27];
+                Arrays.fill(returnItem, specialRemaining.returnItem);
+                modifiedMatrix[index] = ShulkerBoxHelper.newbox(Items.SHULKER_BOXES.get(boxColorMatrix[index]), returnItem);
+                condensedMatrix[index] = null;
+                boxColorMatrix[index] = -2;
+                break;
+            }
+        }
+
         boolean mixStackCrafting = recipeHelper.mixStackCrafting();
-
-
         if (mixStackCrafting) {
             //Handler remainder of different stacks
-
-            // sum of larger stack - sum of smaller stack > 64 x 27 x 5 - 16 x 27 = 8208
-            // difference / larger stack = number of full box > 8208 / 1728 = 4.75 ~ 4 full + 1 non-full
-            // difference % larger stack = remainder > 8208 % 1728 = 1296 = 64 * 20 + 16
-
-            // It might go wrong when there are 2+ types of max stackable size in matrix (non-vanilla?)
-            //
-            //int minMaxStack = indexMap.get("minMaxStack");
-
-
             // already -1 for result
             for (int index = 0; index < condensedMatrix.length; index++) {
                 // Non-shulker box
@@ -82,22 +88,6 @@ public class CraftedItem implements Listener {
                 );
                 condensedMatrix[index] = null;
                 boxColorMatrix[index] = -2;
-            }
-        }
-        // Special Returns
-        if (specialRemaining.returnItem != Items.AIR) {
-            // Find first empty box to store the special return
-            for (int index = 0; index < condensedMatrix.length; index++) {
-                ItemStack condensedItem = condensedMatrix[index];
-                if (condensedItem == null) {
-                    continue;
-                }
-                ItemStack[] returnItem = new ItemStack[27];
-                Arrays.fill(returnItem, specialRemaining.returnItem);
-                modifiedMatrix[index] = ShulkerBoxHelper.newbox(Items.SHULKER_BOXES.get(boxColorMatrix[index]), returnItem);
-                condensedMatrix[index] = null;
-                boxColorMatrix[index] = -2;
-                break;
             }
         }
 
