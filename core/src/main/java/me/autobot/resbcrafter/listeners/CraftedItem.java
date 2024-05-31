@@ -6,6 +6,7 @@ import me.autobot.resbcrafter.helper.RecipeHelper;
 import me.autobot.resbcrafter.helper.ShulkerBoxHelper;
 import me.autobot.resbcrafter.helper.SpecialRemaining;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
@@ -19,6 +20,7 @@ public class CraftedItem implements Listener {
     @EventHandler
     public void onCrafted(CraftItemEvent event) {
         CraftingInventory craftingInventory = event.getInventory();
+        Player whoClick = (Player) event.getWhoClicked();
         RecipeHelper recipeHelper = new RecipeHelper(craftingInventory);
         Recipe recipe = recipeHelper.getRecipe();
         if (recipe == null) {
@@ -113,7 +115,15 @@ public class CraftedItem implements Listener {
             condensedMatrix[j] = null;
             extraFilling--;
         }
-        Runnable runnable = () -> craftingInventory.setMatrix(modifiedMatrix);
-        ReSbCrafter.scheduler.regionTaskDelayed(runnable, craftingInventory.getLocation(), 0);
+        Runnable runnable = () -> {
+            if (whoClick.getOpenInventory().getTopInventory() == event.getInventory()) {
+                craftingInventory.setMatrix(modifiedMatrix);
+            } else {
+                for (ItemStack i : modifiedMatrix) {
+                    whoClick.getWorld().dropItemNaturally(whoClick.getLocation(), i);
+                }
+            }
+        };
+        ReSbCrafter.scheduler.entityTaskDelayed(runnable, whoClick, 0);
     }
 }

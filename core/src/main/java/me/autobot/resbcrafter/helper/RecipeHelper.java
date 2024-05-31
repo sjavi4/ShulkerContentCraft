@@ -31,7 +31,8 @@ public class RecipeHelper {
         //System.out.println(Arrays.toString(originalMatrixWithBoxColor));
         getShulkerBoxContent();
         //originalBoxContent.values().forEach(itemStacks -> System.out.println(Arrays.toString(itemStacks)));
-        this.player = (Player) craftingInventory.getViewers().getFirst();
+        this.player = (Player) craftingInventory.getViewers().get(0);
+        //this.player = (Player) craftingInventory.getViewers().getFirst();
     }
 
     public void getMatrixContent() {

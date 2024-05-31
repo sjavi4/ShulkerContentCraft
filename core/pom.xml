@@ -7,7 +7,7 @@
     <parent>
         <groupId>me.autobot</groupId>
         <artifactId>ReSbCrafter-parent</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
     </parent>
     <artifactId>core</artifactId>
     <version>${project.parent.version}</version>
@@ -39,12 +39,12 @@
         <dependency>
             <groupId>me.autobot</groupId>
             <artifactId>common</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
         </dependency>
         <dependency>
             <groupId>me.autobot</groupId>
             <artifactId>folia</artifactId>
-            <version>1.0</version>
+            <version>1.1</version>
         </dependency>
     </dependencies>
 </project>
