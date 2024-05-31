@@ -122,13 +122,16 @@ public class RecipeHelper {
     }
     public boolean invalidMatrix() {
         boolean impure = Arrays.stream(this.originalMatrixWithBoxColor).anyMatch(color -> color == -1);
+        if (impure) {
+            return true;
+        }
         boolean allFull = Arrays.stream(this.originalMatrix)
                 .filter(i -> i != null && !i.equals(Items.AIR))
                 .map(i -> ShulkerBoxHelper.convertShulkerBox(i).getInventory().getContents())
                 .flatMap(Arrays::stream)
                 .filter(Objects::nonNull)
                 .allMatch(c -> c.getAmount() == c.getMaxStackSize());
-        if (impure || !allFull) {
+        if (!allFull) {
             return true;
         }
         // Mixed Content is presence
